@@ -1,0 +1,3 @@
+[run]
+source = appenlight_demo
+omit = appenlight_demo/test*

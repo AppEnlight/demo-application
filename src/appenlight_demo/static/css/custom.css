@@ -1,0 +1,18 @@
+/*white #FCFFF5*/
+/*beige #D1DBBD*/
+/*blue #91AA9D*/
+/*darkblue #193441*/
+
+body {
+    background-color: #193441;
+}
+
+.jumbotron {
+    background-color: #193441;
+    color: #FCFFF5;
+    margin-top: 20px;
+}
+
+.container {
+    color: #FCFFF5;
+}

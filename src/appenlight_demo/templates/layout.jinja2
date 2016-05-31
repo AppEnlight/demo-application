@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Small demonstration app of App Enlight</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/custom.css" rel="stylesheet">
+    <script src="/static/js/demo.js"></script>
+
+    <script type="text/javascript">
+
+        var initAppEnlight = function () {
+            if(this.readyState!='loading'){
+                AppEnlight.init({
+                    server: '{{ request.registry.settings['appenlight.base_url'] }}',
+                    apiKey:'{{ request.registry.settings.get('appenlight.public_key') }}',
+                    windowOnError: 1 // enable to hook to window.onerror
+                });
+                // setting request info is completly optional
+                AppEnlight.setRequestInfo({
+                    server:'jstest.appenlight',
+                    username:'i_am_mario',
+                    ip: "127.0.0.1",
+                    request_id: String(Math.random())
+                });
+
+                AppEnlight.addGlobalTags({framework:'angular', language:'javascript'});
+                AppEnlight.addGlobalExtra({some_key:'on every request'});
+
+            }
+        };
+        //  load the script asynchroneously
+        var scrElem = document.createElement('script');
+        scrElem.type = 'text/javascript';
+        scrElem.async = true;
+        scrElem.onload = scrElem.onreadystatechange = initAppEnlight;
+        scrElem.src = "//cdn.jsdelivr.net/appenlight/latest/appenlight-client.min.js";
+        var p = document.getElementsByTagName('script')[0];
+        p.parentNode.insertBefore(scrElem, p);
+
+    </script>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="jumbotron text-center">
+        <p><img src="/static/images/errormator-logo_white.png"/></p>
+
+        <p class="lead">This small pyramid application is monitored by App Enlight and demonstrates some of our client capabilities.</p>
+        <p style="font-size: 60%">You should observe our demo account dashboard when playing with this app.</p>
+    </div>
+
+    {% block content %}{% endblock content %}
+
+    <div class="footer">
+        <p>&copy; RhodeCode 2016</p>
+    </div>
+
+</div>
+<!-- /container -->
+
+</body>
+</html>

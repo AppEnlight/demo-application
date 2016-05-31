@@ -1,0 +1,81 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-sm-6">
+            <h4>Server side issues</h4>
+
+            <p>Try to generate an exception and watch live updates on <a
+                    href="https://appenlight.com/user/demo"> our dashboard</a>
+            </p>
+
+            <p><a href="{{ request.route_url('action', action='exception') }}"
+                  class="btn btn-danger">This errors out</a></p>
+
+            <p>
+                <a href="{{ request.route_url('action', action='slow_report') }}"
+                   class="btn btn-warning">This performs some slow stuff</a>
+            </p>
+
+            <form action="{{ request.route_url('action', action='logging') }}"
+                  method="post">
+                <div class="form-group">
+                    <label>Append custom log message</label>
+                    <input type="text" class="form-control" name="log_message"
+                           placeholder="Your log message"></div>
+                <p><input type="submit" class="btn btn-info"
+                          value="Test logging"></p>
+            </form>
+            <h4 style="margin-top: 50px">Client side errors</h4>
+
+            <p><a href="#" onclick="test_error()" class="btn btn-danger">Generate
+                javascript error</a></p>
+
+        </div>
+
+        <div class="col-sm-6">
+            <h4>Other languages</h4>
+
+            <p>This demo is created with <strong>Python</strong> and Pyramid
+                framework.</p>
+
+            <p>App Enlight also supports other languages and frameworks
+                like <strong>Django, Flask, Ruby, Rails, Node.js, PHP</strong>
+                and anything else that can use our JSON
+                API over HTTPS.</p>
+            <h4 style="margin-top: 50px">Source code</h4>
+
+            <p>Repository for this app is <a
+                    href="https://github.com/AppEnlight/demo-application">available
+                on Github</a>. </p>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+
+        <div class="col-sm-6">
+            <h4>Generate log data for statistics</h4>
+
+            <p><a href="{{ request.route_url('action', action='generate_ticket_data') }}"
+                  class="btn btn-info">Generate support ticket data</a></p>
+
+            <p>
+                <a href="{{ request.route_url('action', action='generate_shop_data') }}"
+                   class="btn btn-info">Generate shop data</a>
+            </p>
+
+        </div>
+
+        <div class="col-sm-6">
+            <p>Now you can try to create your charts using following namespaces:</p>
+            <ul>
+                <li>Ticket data namespace: <strong>rc.support_tickets</strong></li>
+                <li>Shop data namespace: <strong>rc.shop.dummy_data</strong></li>
+            </ul>
+        </div>
+    </div>
+
+{% endblock content %}
