@@ -42,7 +42,7 @@ def test_exception(request):
     request.environ['appenlight.tags']['price'] = 25.5
     request.environ['appenlight.tags']['count'] = random.randint(1, 5)
     msg = 'this log entry was sent with exception report {}'
-    log.warning(msg.filter(random.randint(1,999)))
+    log.warning(msg.format(random.randint(1,999)))
     run_exc = random.randint(1, 4)
     dict__that_can_be_inspected = {
         "key_integer": 12345,
