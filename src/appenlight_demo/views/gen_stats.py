@@ -32,7 +32,7 @@ def generate_shop_data(request):
              "primary_key": x,
              "permanent": True,
              "tags": [["action", 'buy'],
-                      ["product", 'product_name %s' % price],
+                      ["product", 'product_name %s' % random.randint(1, 20)],
                       ["price", price],
                       ["quantity", quantity],
                       ["total_payment", price * quantity],
