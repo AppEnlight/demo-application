@@ -59,22 +59,39 @@
         <div class="col-sm-6">
             <h4>Generate log data for statistics</h4>
 
-            <p><a href="{{ request.route_url('action', action='generate_ticket_data') }}"
-                  class="btn btn-info">Generate support ticket data</a></p>
+            <p>
+                <a href="{{ request.route_url('action', action='generate_ticket_data') }}"
+                   class="btn btn-info">Generate support ticket data</a></p>
 
             <p>
                 <a href="{{ request.route_url('action', action='generate_shop_data') }}"
                    class="btn btn-info">Generate shop data</a>
             </p>
 
+            <p>
+                <a href="{{ request.route_url('action', action='generate_intrusion') }}"
+                   class="btn btn-danger">Generate intrusion log entry</a>
+            </p>
+
         </div>
 
         <div class="col-sm-6">
-            <p>Now you can try to create your charts using following namespaces:</p>
+            <p>Now you can try to create your charts using following
+                namespaces:</p>
             <ul>
-                <li>Ticket data namespace: <strong>rc.support_tickets</strong></li>
-                <li>Shop data namespace: <strong>rc.shop.dummy_data</strong></li>
+                <li>Ticket data namespace: <strong>rc.support_tickets</strong>
+                </li>
+                <li>Shop data namespace: <strong>rc.shop.dummy_data</strong>
+                </li>
             </ul>
+
+            {% if request.has_permission('special') %}
+                <p>Special features</p>
+                <a href="
+                        {{ request.route_url('action', action='import_repo_stats', _query={'password':request.registry.settings['protected_features_password']}) }}"
+                   class="btn btn-danger">Run repository stats importer</a>
+            {% endif %}
+
         </div>
     </div>
 
