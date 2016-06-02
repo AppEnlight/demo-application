@@ -42,7 +42,7 @@ def test_exception(request):
     request.environ['appenlight.tags']['price'] = 25.5
     request.environ['appenlight.tags']['count'] = random.randint(1, 5)
     msg = 'this log entry was sent with exception report {}'
-    log.warning(msg.format(random.randint(1,999)))
+    log.warning(msg.format(random.randint(1, 999)))
     run_exc = random.randint(1, 4)
     dict__that_can_be_inspected = {
         "key_integer": 12345,
@@ -87,11 +87,12 @@ def test_slow_report(request):
     for user in users:
         for addr in user.addresses:
             pass
-    request.dbsession.execute('SELECT users.id, addresses.id, forums.id, posts.id , '
-                              '1 + :param1 + :param2, :param3 '
-                              'from users join addresses join forums join posts',
-                              {"param1": -1, "param2": 11,
-                               "param3": 'some_string'}).fetchall()
+    request.dbsession.execute(
+        'SELECT users.id, addresses.id, forums.id, posts.id , '
+        '1 + :param1 + :param2, :param3 '
+        'from users join addresses join forums join posts',
+        {"param1": -1, "param2": 11,
+         "param3": 'some_string'}).fetchall()
     log.info(
         'this log entry was sent with slow report %s' % random.randint(1, 999))
     return HTTPFound('/')
@@ -112,6 +113,18 @@ def test_logging(request):
     custom_log.warning(
         'Matched GET /\xc4\x85\xc5\xbc\xc4\x87\xc4\x99'
         '\xc4\x99\xc4\x85/fizzbuzz some incorrect encoding here')
+    return HTTPFound('/')
+
+
+@view_config(route_name='action', match_param="action=generate_intrusion_log",
+             renderer='string')
+def generate_intrusion_log(request):
+    request.environ['appelight.force_send'] = 1
+
+    custom_log = logging.getLogger('security')
+    custom_log.critical('breach/fraud attempt',
+                        extra={'action': 'fraud',
+                               'user_id': random.randint(1, 199)})
     return HTTPFound('/')
 
 

@@ -98,18 +98,6 @@ def generate_ticket_data(request):
     return HTTPFound(location=request.route_url('/'))
 
 
-@view_config(route_name='action', match_param="action=generate_intrusion_log",
-             renderer='string')
-def generate_intrusion_log(request):
-    request.environ['appelight.force_send'] = 1
-
-    custom_log = logging.getLogger('security')
-    custom_log.critical('breach/fraud attempt',
-                        extra={'action': 'fraud',
-                               'user_id': random.randint(1, 199)})
-    return HTTPFound('/')
-
-
 @view_config(route_name='action', match_param="action=import_repo_stats",
              renderer='string', permission='special')
 def import_repo_stats(request):
