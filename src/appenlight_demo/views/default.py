@@ -124,7 +124,7 @@ def generate_intrusion_log(request):
     custom_log = logging.getLogger('security')
     custom_log.critical('breach/fraud attempt',
                         extra={'action': 'fraud',
-                               'user_id': random.randint(1, 199)})
+                               'user_id': random.randint(1, 10)})
     return HTTPFound('/')
 
 
